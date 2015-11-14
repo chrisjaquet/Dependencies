@@ -2,7 +2,7 @@ import argparse
 import hashlib
 import os
 import sys
-import urllib
+import urllib.request
 
 
 DOWNLOAD_URL = 'https://googledrive.com/host/%s/%s'
@@ -113,8 +113,8 @@ def DownloadFiles(flags):
     if actual_md5_checksum != md5_checksum:
       url = DOWNLOAD_URL % (FOLDER_ID, name)
 
-      print 'Downloading %s...' % name
-      urllib.urlretrieve(url, path)
+      print('Downloading %s...' % name)
+      urllib.request.urlretrieve(url, path)
       actual_md5_checksum = Md5File(path)
 
     # If the checksum still didn't match the download must have failed.
@@ -123,7 +123,7 @@ def DownloadFiles(flags):
           'Download failed - checksums do not match (got %s, expected %s)' % (
               actual_md5_checksum, md5_checksum))
 
-  print 'All files are up-to-date'
+  print('All files are up-to-date')
 
 
 def Main(argv):
